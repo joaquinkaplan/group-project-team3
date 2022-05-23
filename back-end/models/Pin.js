@@ -4,34 +4,34 @@ const PinSchema = new mongoose.Schema(
   {
     username: {
       type: String,
-      required,
+      required: true,
     },
     title: {
       type: String,
-      required,
+      required: true,
       min: 3,
     },
     desc: {
       type: String,
-      required,
+      required: true,
       min: 3,
     },
     rating: {
       type: Number,
-      required,
+      required: true,
       min: 0,
       max: 5,
     },
     lat: {
       type: Number,
-      required,
+      required: true,
     },
     long: {
       type: Number,
-      required,
+      required: true,
     },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Pin", PinSchema);
+export default mongoose.model("Pin", PinSchema);
