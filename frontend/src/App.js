@@ -181,7 +181,7 @@ function App() {
         </div>
       )}
       {showRegister && <Register setShowRegister={setShowRegister}/>}
-      {showLogin && <Login setShowLogin={setShowLogin} setCurrentUsername={setCurrentUsername} myStorage={myStorage}/>}
+      {showLogin && <Login setShowLogin={setShowLogin} setCurrentUsername={setCurrentUser} myStorage={myStorage}/>}
     </Map>
   );
 }
