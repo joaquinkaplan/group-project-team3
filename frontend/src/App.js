@@ -7,15 +7,19 @@ import "./app.css";
 import axios from "axios";
 import { format } from "timeago.js";
 import Register from "./components/Register";
+import Login from "./components/Login";
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(null);
+  const myStorage = window.localStorage;
+  const [currentUser, setCurrentUser] = useState(myStorage.getItem("user"));
   const [pins, setPins] = useState([]);
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [newPlace, setNewPlace] = useState(null);
   const [title, setTitle] = useState(null);
   const [desc, setDesc] = useState(null);
   const [rating, setRating] = useState(0);
+  const [showRegister, setShowRegister] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
   const [viewState, setViewState] = useState({
     latitude: 31.6,
     longitude: 35,
@@ -65,6 +69,12 @@ function App() {
       console.log(err);
     }
   };
+
+  const handleLogout = () => {
+    setCurrentUser(null);
+    myStorage.removeItem("user");
+  };
+
   return (
     <Map
       {...viewState}
@@ -163,14 +173,15 @@ function App() {
         </Popup>
       )}
       {currentUser ? (
-        <button className="button logout">Log out</button>
+        <button className="button logout" onClick={handleLogout}>Log out</button>
       ) : (
         <div className="buttons">
-          <button className="button login">Login</button>
-          <button className="button register">Register</button>
+          <button className="button login" onClick={() => setShowLogin(true)}>Login</button>
+          <button className="button register" onClick={() => setShowRegister(true)}>Register</button>
         </div>
       )}
-      <Register/>
+      {showRegister && <Register setShowRegister={setShowRegister}/>}
+      {showLogin && <Login setShowLogin={setShowLogin} setCurrentUsername={setCurrentUsername} myStorage={myStorage}/>}
     </Map>
   );
 }
