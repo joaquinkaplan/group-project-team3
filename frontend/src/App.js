@@ -44,10 +44,11 @@ function App() {
   }
 
   const handleAddClick = (e) => {
-    const [long, lat] = e.lngLat;
+    const { lat, lng } = e.lngLat;
+
     setNewPlace({
-      lat,
-      long,
+      lat: lat,
+      long: lng,
     });
   };
 
@@ -62,7 +63,7 @@ function App() {
       long: newPlace.long,
     };
     try {
-      const res = await axios.post("/pins", newPin);
+      const res = await axios.post("http://localhost:8080/api/pins", newPin);
       setPins([...pins, res.data]);
       setNewPlace(null);
     } catch (err) {
@@ -173,15 +174,30 @@ function App() {
         </Popup>
       )}
       {currentUser ? (
-        <button className="button logout" onClick={handleLogout}>Log out</button>
+        <button className="button logout" onClick={handleLogout}>
+          Log out
+        </button>
       ) : (
         <div className="buttons">
-          <button className="button login" onClick={() => setShowLogin(true)}>Login</button>
-          <button className="button register" onClick={() => setShowRegister(true)}>Register</button>
+          <button className="button login" onClick={() => setShowLogin(true)}>
+            Login
+          </button>
+          <button
+            className="button register"
+            onClick={() => setShowRegister(true)}
+          >
+            Register
+          </button>
         </div>
       )}
-      {showRegister && <Register setShowRegister={setShowRegister}/>}
-      {showLogin && <Login setShowLogin={setShowLogin} setCurrentUsername={setCurrentUser} myStorage={myStorage}/>}
+      {showRegister && <Register setShowRegister={setShowRegister} />}
+      {showLogin && (
+        <Login
+          setShowLogin={setShowLogin}
+          setCurrentUsername={setCurrentUser}
+          myStorage={myStorage}
+        />
+      )}
     </Map>
   );
 }

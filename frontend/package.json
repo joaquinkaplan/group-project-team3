@@ -17,10 +17,12 @@
     "react-map-gl": "^7.0.14",
     "react-scripts": "5.0.1",
     "timeago.js": "^4.0.2",
+    "util": "^0.12.4",
+    "uuidv4": "^6.2.13",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "GENERATE_SOURCEMAP=false react-scripts start",
+    "start": "react-scripts start",
     "winStart": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

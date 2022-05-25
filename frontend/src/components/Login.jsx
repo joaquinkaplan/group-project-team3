@@ -1,9 +1,10 @@
-import { Cancel, Room } from "@material-ui/icons";
+import CancelIcon from "@mui/icons-material/Cancel";
+import RoomIcon from "@mui/icons-material/Room";
 import axios from "axios";
 import { useRef, useState } from "react";
 import "./login.css";
 
-export default function Login({ setShowLogin, setCurrentUsername,myStorage }) {
+export default function Login({ setShowLogin, setCurrentUsername, myStorage }) {
   const [error, setError] = useState(false);
   const usernameRef = useRef();
   const passwordRef = useRef();
@@ -15,10 +16,13 @@ export default function Login({ setShowLogin, setCurrentUsername,myStorage }) {
       password: passwordRef.current.value,
     };
     try {
-      const res = await axios.post("/users/login", user);
+      const res = await axios.post(
+        "http://localhost:8080/api/users/login",
+        user
+      );
       setCurrentUsername(res.data.username);
-      myStorage.setItem('user', res.data.username);
-      setShowLogin(false)
+      myStorage.setItem("user", res.data.username);
+      setShowLogin(false);
     } catch (err) {
       setError(true);
     }
@@ -27,8 +31,8 @@ export default function Login({ setShowLogin, setCurrentUsername,myStorage }) {
   return (
     <div className="loginContainer">
       <div className="logo">
-        <Room className="logoIcon" />
-        <span>LamaPin</span>
+        <RoomIcon className="logoIcon" />
+        <span>Login</span>
       </div>
       <form onSubmit={handleSubmit}>
         <input autoFocus placeholder="username" ref={usernameRef} />
@@ -43,7 +47,7 @@ export default function Login({ setShowLogin, setCurrentUsername,myStorage }) {
         </button>
         {error && <span className="failure">Something went wrong!</span>}
       </form>
-      <Cancel className="loginCancel" onClick={() => setShowLogin(false)} />
+      <CancelIcon className="loginCancel" onClick={() => setShowLogin(false)} />
     </div>
   );
 }
