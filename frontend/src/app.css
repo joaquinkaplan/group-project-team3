@@ -46,7 +46,9 @@ textarea::placeholder {
   font-size: 12px;
   color: rgb(169, 162, 162);
 }
-
+textarea {
+  resize: none;
+}
 .submitButton {
   border: none;
   padding: 5px;
